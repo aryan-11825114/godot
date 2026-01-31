@@ -561,7 +561,12 @@ void GameView::_update_debugger_buttons() {
 	suspend_button->set_disabled(empty);
 	camera_override_button->set_disabled(empty);
 	speed_state_button->set_disabled(empty);
-	reset_speed_button->set_disabled(empty);
+
+	if (empty || time_scale_index == DEFAULT_TIME_SCALE_INDEX) {
+		reset_speed_button->set_disabled(true);
+	} else {
+		reset_speed_button->set_disabled(false);
+	}
 
 	PopupMenu *menu = camera_override_menu->get_popup();
 
@@ -572,6 +577,7 @@ void GameView::_update_debugger_buttons() {
 	if (empty) {
 		suspend_button->set_pressed(false);
 		camera_override_button->set_pressed(false);
+		speed_state_button->set_text(vformat(U"%s×", time_scale_label[DEFAULT_TIME_SCALE_INDEX]));
 		_reset_time_scales();
 	}
 
